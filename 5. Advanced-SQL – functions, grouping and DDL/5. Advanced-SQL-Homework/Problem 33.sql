@@ -1,0 +1,3 @@
+BEGIN TRAN
+DELETE FROM EmployeesProjects;
+ROLLBACK TRAN

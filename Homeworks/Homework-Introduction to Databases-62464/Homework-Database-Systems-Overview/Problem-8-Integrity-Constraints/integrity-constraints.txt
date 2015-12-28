@@ -1,0 +1,31 @@
+Problem 8. Database Integrity Constraints
+
+Integrity constraints are used to ensure accuracy and consistency of data in a relational database. 
+Data integrity is handled in a relational database through the concept of referential integrity. 
+Many types of integrity constraints play a role in referential integrity (RI).
+
+Primary key constraints: Primary key is the term used to identify one or more columns in a table 
+that make a row of data unique. Although the primary key typically consists of one column in a table, 
+more than one column can comprise the primary key. The objective is for every record to have a unique 
+primary key.
+
+Unique constraints: A unique column constraint in a table is similar to a primary key in that the value 
+in that column for every row of data in the table must have a unique value. Although a primary key constraint 
+is placed on one column, you can place a unique constraint on another column even though it is not actually 
+for use as the primary key. 
+
+Foreign key constraints: A foreign key is a column in a child table that references a primary key in the 
+parent table. A foreign key constraint is the main mechanism used to enforce referential integrity between 
+tables in a relational database. A column defined as a foreign key is used to reference a column defined as 
+a primary key in another table.
+
+NOT NULL constraints: NOT NULL is a constraint that you can place on a table's column. This constraint disallows 
+the entrance of NULL values into a column; in other words, data is required in a NOT NULL column for each row 
+of data in the table. NULL is generally the default for a column if NOT NULL is not specified, allowing 
+NULL values in a column.
+
+Check constraints: Check (CHK) constraints can be utilized to check the validity of data entered into particular 
+table columns. Check constraints are used to provide back-end database edits, although edits are commonly found 
+in the front-end application as well. General edits restrict values that can be entered into columns or objects, 
+whether within the database itself or on a front-end application. The check constraint is a way of providing 
+another protective layer for the data.

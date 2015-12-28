@@ -1,0 +1,225 @@
+SELECT Username,
+       LastName,
+	   CASE PhoneNumber
+	   WHEN IS NOT NULL THEN 1
+       ELSE 0
+	   END AS [Has Phone]
+FROM Users
+ORDER BY LastName, Id
+....................................................
+
+SELECT a.Content as [Answer Content], a.CreatedOn, u.Username as [Answer Author], q.Title as [Question Title], c.Name as [Category Name]
+FROM Answers a
+  JOIN Questions q on q.Id = a.QuestionId
+  JOIN Categories c on q.CategoryId = c.Id
+  JOIN Users u on a.UserId = u.Id
+ORDER BY c.Name, u.Username, a.CreatedOn
+
+.......................................................
+
+SELECT DISTINCT c.Name, q.Title, q.CreatedOn
+FROM Questions q
+RIGHT OUTER JOIN Categories c
+ON q.CategoryId = c.Id
+ORDER BY c.Name, q.Title DESC
+GO
+
+........................................................
+
+SELECT MIN(CreatedOn) AS MinDate, MAX(CreatedOn) AS MaxDate
+FROM Answers
+WHERE CreatedOn BETWEEN '01/01/2012' AND '12/31/2014'
+GO
+.........................................................
+SELECT TOP 10 a.Content, a.CreatedOn, u.Username
+FROM Answers a
+JOIN Users u
+ON a.UserId = u.Id
+ORDER BY a.CreatedOn
+.........................................................
+SELECT a.Content AS [Answer Content], q.Title AS [Question], c.Name AS [Category]
+FROM Answers a
+JOIN Questions q
+ON a.QuestionId = q.Id
+JOIN Categories c
+ON q.CategoryId = c.Id
+WHERE (MONTH(a.CreatedOn) = (SELECT MONTH(MIN(CreatedOn)) FROM Answers) OR MONTH(a.CreatedOn) = (SELECT MONTH(MAX(CreatedOn)) FROM Answers))
+	AND YEAR(a.CreatedOn) = (SELECT YEAR(MAX(CreatedOn)) FROM Answers)
+	AND	IsHidden = 1
+ORDER BY c.Name
+.........................................................
+SELECT c.Name AS Category, COUNT(a.Id) AS [Answers Count]
+FROM Categories c
+LEFT JOIN Questions q
+ON q.CategoryId = c.Id
+LEFT JOIN Answers a
+ON a.QuestionId = q.Id
+GROUP BY c.Name
+ORDER BY [Answers Count] DESC
+GO
+............................................................
+SELECT c.Name AS Category, u.Username, u.PhoneNumber, COUNT(a.Id) AS [Answers Count]
+FROM Categories c
+LEFT JOIN Questions q
+ON q.CategoryId = c.Id
+LEFT JOIN Answers a
+ON a.QuestionId = q.Id
+LEFT JOIN Users u
+ON a.UserId = u.Id
+GROUP BY c.Name, u.Username, u.PhoneNumber
+HAVING u.PhoneNumber IS NOT NULL
+ORDER BY COUNT(a.Id) DESC
+.............................................................
+USE Forum
+GO
+CREATE TABLE Towns
+(Id int primary key identity,
+Name nvarchar(50) not null)
+GO
+ALTER TABLE Users
+ADD TownId int
+GO
+ALTER TABLE Users
+ADD CONSTRAINT FK_Users_Towns
+  FOREIGN KEY (TownId) REFERENCES Towns(Id)
+GO
+INSERT INTO Towns(Name) VALUES ('Sofia'), ('Berlin'), ('Lyon')
+UPDATE Users SET TownId = (SELECT Id FROM Towns WHERE Name='Sofia')
+INSERT INTO Towns VALUES
+('Munich'), ('Frankfurt'), ('Varna'), ('Hamburg'), ('Paris'), ('Lom'), ('Nantes')
+GO
+UPDATE Users
+SET TownId = (SELECT Id FROM Towns WHERE Name = 'Paris')
+WHERE DATENAME(WEEKDAY,RegistrationDate) = 'Friday'
+GO
+UPDATE Answers
+SET QuestionId = (SELECT Id FROM Questions WHERE Title = 'Java += operator')
+WHERE DATENAME(WEEKDAY,CreatedOn) IN ('Monday','Sunday') AND DATENAME(MONTH,CreatedOn) = 'February'
+GO
+BEGIN TRAN
+
+CREATE Table [#AnswerIds] (
+	AnswerId int not null
+)
+
+INSERT INTO [#AnswerIds]
+SELECT a.Id FROM Answers a
+WHERE (SELECT SUM(Value)
+FROM Answers aa
+JOIN Votes v ON v.AnswerId = a.Id) < 0
+
+DELETE FROM Votes
+FROM Votes v
+WHERE v.AnswerId in 
+	(
+		SELECT a.Id FROM Answers a
+		WHERE (SELECT SUM(Value)
+		FROM Answers aa
+		JOIN Votes v ON v.AnswerId = a.Id) < 0)
+
+DELETE FROM Answers
+FROM Answers a
+WHERE a.Id in (SELECT * FROM [#AnswerIds])
+
+DROP TABLE [#AnswerIds]
+
+ROLLBACK TRAN
+GO
+INSERT INTO Questions(Title, Content, CreatedOn, UserId, CategoryId)
+VALUES('Fetch NULL values in PDO query', 
+'When I run the snippet, NULL values are converted to empty strings.  How can fetch NULL values?', 
+GETDATE(), 
+(SELECT u.Id FROM Users u WHERE u.Username = 'darkcat' ), 
+(SELECT c.Id FROM Categories c WHERE c.Name = 'Databases'))
+GO
+SELECT t.Name AS Town, u.Username, COUNT(a.Id) AS AnswersCount
+FROM Towns t
+FULL JOIN Users u
+ON u.TownId = t.Id
+FULL JOIN Answers a
+ON a.UserId = u.Id
+GROUP BY t.Name, u.Username
+ORDER BY COUNT(a.Id) DESC, u.Username
+GO
+...............................................................
+IF OBJECT_ID('fn_TeamsJSON') IS NOT NULL
+  DROP FUNCTION fn_TeamsJSON
+GO
+
+CREATE FUNCTION fn_TeamsJSON()
+	RETURNS NVARCHAR(MAX)
+AS
+BEGIN
+	DECLARE @json NVARCHAR(MAX) = '{"teams":['
+
+	DECLARE teamsCursor CURSOR FOR
+	SELECT Id, TeamName FROM Teams
+	WHERE CountryCode = 'BG'
+	ORDER BY TeamName
+
+	OPEN teamsCursor
+	DECLARE @TeamName NVARCHAR(MAX)
+	DECLARE @TeamId INT
+	FETCH NEXT FROM teamsCursor INTO @TeamId, @TeamName
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET @json = @json + '{"name":"' + @TeamName + '","matches":['
+
+		DECLARE matchesCursor CURSOR FOR
+		SELECT t1.TeamName, t2.TeamName, HomeGoals, AwayGoals, MatchDate FROM TeamMatches
+		LEFT JOIN Teams t1 ON t1.Id = HomeTeamId
+		LEFT JOIN Teams t2 ON t2.Id = AwayTeamId
+		WHERE HomeTeamId = @TeamId OR AwayTeamId = @TeamId
+		ORDER BY TeamMatches.MatchDate DESC
+
+		OPEN matchesCursor
+		DECLARE @HomeTeamName NVARCHAR(MAX)
+		DECLARE @AwayTeamName NVARCHAR(MAX)
+		DECLARE @HomeGoals INT
+		DECLARE @AwayGoals INT
+		DECLARE @MatchDate DATE
+		FETCH NEXT FROM matchesCursor INTO @HomeTeamName, @AwayTeamName, @HomeGoals, @AwayGoals, @MatchDate
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			SET @json = @json + '{"' + @HomeTeamName + '":' + CONVERT(NVARCHAR(MAX), @HomeGoals) + ',"' + 
+						@AwayTeamName + '":' + CONVERT(NVARCHAR(MAX), @AwayGoals) + 
+						',"date":' + CONVERT(NVARCHAR(MAX), @MatchDate, 103) + '}'
+			FETCH NEXT FROM matchesCursor INTO @HomeTeamName, @AwayTeamName, @HomeGoals, @AwayGoals, @MatchDate
+			IF @@FETCH_STATUS = 0
+				SET @json = @json + ','
+		END
+		CLOSE matchesCursor
+		DEALLOCATE matchesCursor	
+		SET @json = @json + ']}'
+
+		FETCH NEXT FROM teamsCursor INTO @TeamId, @TeamName
+		IF @@FETCH_STATUS = 0
+			SET @json = @json + ','
+	END
+	CLOSE teamsCursor
+	DEALLOCATE teamsCursor
+
+	SET @json = @json + ']}'
+	RETURN @json
+END
+GO
+
+SELECT dbo.fn_TeamsJSON()
+...............................................................
+My SQL
+
+select p.product_name, COUNT(o.id) as num_orders, ifnull(SUM(oi.quantity), 0) as quantity, p.price, ifnull(SUM(oi.quantity) * p.price, 0) as total_price
+
+from products p 
+
+left join order_items oi
+
+on p.id = oi.product_id
+
+left join orders o
+
+on o.id = oi.order_id
+
+group by p.product_name, p.price
+
+order by p.product_name

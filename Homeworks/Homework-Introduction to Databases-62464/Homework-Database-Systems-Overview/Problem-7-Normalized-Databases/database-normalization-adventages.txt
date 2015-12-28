@@ -1,0 +1,11 @@
+Problem 7. Advantages of Normalized Databases
+
+Some of the benefits of normalization are:
+- Data integrity (because there is no redundant data);
+- Optimized queries (because normalized tables produce rapid, efficient joins);
+- Faster index creation and sorting (because the tables have fewer columns);
+- Faster UPDATE performance (because there are fewer indexes per table);
+- Improved concurrency resolution (because table locks will affect less data;
+- Data consistency within the database;
+- A much more flexible database design;
+- A better handle on database security.

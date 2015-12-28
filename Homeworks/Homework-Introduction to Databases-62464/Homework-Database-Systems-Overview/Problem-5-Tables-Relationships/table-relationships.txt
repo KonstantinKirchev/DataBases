@@ -1,0 +1,17 @@
+Problem 5. Relationships between Tables in Relational Databases
+
+One-to-one: both tables can have only one record on either side of the relationship. Each primary key value 
+relates to only one record in the related table. Most one-to-one relationships are forced by business rules 
+and do not flow naturally from the data. In the absence of such a rule, you can usually combine 
+both tables into one table without breaking any normalization rules.
+
+One-to-many: The primary key table contains only one record that relates to none, one, or many records in the 
+related table. This effectively save storage as the related record does not need to be stored multiple times 
+in the relating table.
+
+Many-to-many: Each record in both tables can relate to any number of records (or no records) in the other table. 
+Many-to-many relationships require a third table, known as an associate or linking table, because relational 
+systems can not directly accommodate the relationship.
+
+Self referencing relationships: this is used when a table needs to have a relationship with itself. In that kind 
+of table there should be one "root" record witch is on the top of hierarchy.

@@ -1,0 +1,24 @@
+Problem 12. What is a NoSQL Database?
+
+A NoSQL database provides a mechanism for storage and retrieval of data that is modeled in means other than the 
+tabular relations used in relational databases. Motivations for this approach include simplicity of design, 
+horizontal scaling, and finer control over availability. The data structures used by NoSQL databases 
+(e.g. key-value, graph, or document) differ from those used in relational databases, making some operations 
+faster in NoSQL and others faster in relational databases. The particular suitability of a given NoSQL database 
+depends on the problem it must solve.
+NoSQL databases are increasingly used in big data and real-time web applications.
+One of the NoSQL database types are:
+- Document databases - pair each key with a complex data structure known as a document. Documents can contain 
+many different key-value pairs, or key-array pairs, or even nested documents. Commonly used document databases
+are:  MongoDB, Lotus Notes, Clusterpoint, Apache CouchDB;
+- Graph stores - this kind of database is designed for data whose relations are well represented as a graph 
+(elements interconnected with an undetermined number of relations between them). The kind of data could be 
+social relations, public transport links, road maps or network topologies. Commonly used graph databases
+are: Allegro, Neo4J, InfiniteGraph, OrientDB, Virtuoso, Stardog.
+- Key-value stores - the simplest NoSQL databases. Use the associative array (also known as a map or dictionary) 
+as their fundamental data model. In this model, data is represented as a collection of key-value pairs, 
+such that each possible key appears at most once in the collection. Some key-value stores (such as Redis) allow 
+each value to have a type, such as "integer", which adds functionality. Commonly used key-value databases are:  
+Dynamo, FoundationDB, HyperDex, MemcacheDB, Redis, Riak.
+- Wide-column stores - such as Cassandra and HBase are optimized for queries over large datasets, and store 
+columns of data together, instead of rows.

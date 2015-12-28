@@ -1,0 +1,38 @@
+1. What is SQL?
+SQL stands for Structured Query Language and it is a special-purpose programming language designed to manage and manipulate data in RDBMs.
+
+2. What is DML?
+DML means Data Manipulation language. It includes commands for selecting, inserting, deleting and updating data in RDBMs.
+Most big RDBMs have extensions and their own implementation to these commands.
+
+3. What is DDL?
+DDL means Data Definition Language. It represents syntax for defining data structures, especially database schemas.
+It includes commands like ALTER, CREATE, DROP, TRUNCATE TABLE.
+
+4. Recite the most important SQL commands.
+
+DML Commands:
+SELECT * FROM Students;
+
+INSERT INTO Students (FirstName, LastName, HasCat)
+VALUES ('Nachko', 'Svetlinov', 'No');
+
+UPDATE Students
+SET HasCat = 'Yes'
+WHERE FirstName = 'Nachko' AND LastName = 'Svetlinov';
+
+DELETE FROM Students
+WHERE LastName = 'Svetlinov';
+
+DDL Commands:
+CREATE DATABASE 'GameSystem';
+
+CREATE TABLE Players
+(
+ Id int NOT NULL,
+ FirstName varchar(100),
+ LastName varchar(100),
+ PRIMARY KEY (Id)
+);
+
+DROP TABLE Players;

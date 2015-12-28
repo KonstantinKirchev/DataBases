@@ -1,0 +1,12 @@
+Problem 2. Which are the Main Functions Performed by a RDBMS?
+
+Some of the main functions performed by RDBMS are:
+- provides data to be stored in tables;
+- persists data in the form of rows and columns;
+- provides facility primary key, to uniquely identify the rows;
+- creates indexes for quicker data retrieval;
+- provides a virtual table creation in which sensitive data can be stored and simplified query can be applied (views);
+- sharing a common column in two or more tables (primary key and foreign key);
+- provides multi user accessibility that can be controlled by individual users;
+- allows transaction and integrity;
+- provides a way for implement simple CRUD functionality.

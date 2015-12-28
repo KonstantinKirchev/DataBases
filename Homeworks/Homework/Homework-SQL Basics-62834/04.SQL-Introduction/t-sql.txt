@@ -1,0 +1,4 @@
+What is Transact-SQL (T-SQL)?
+
+Transact-SQL is a extension of the standard SQL developed by Microsoft and Sybase. It is used in Microsoft SQL Server.
+T-SQL adds features like transaction control, exceptions, row processing and declared variables to SQL.

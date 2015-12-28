@@ -1,0 +1,21 @@
+Problem 1. What Database Models do You Know?
+
+Database models can be different types. The most popular example of a database model is the relational model, 
+which uses a table-based format.
+Common logical data models for databases include:
+1. Hierarchical database model - the data is organized in a tree structure. There is a hierarchy of parent 
+and child data segments. This structure implies that a record can have repeating information, generally in 
+the child data segments. Data in a series of records, which have a set of field values attached to it. It 
+collects all the instances of a specific record together as a record type. These record types are the equivalent 
+of tables in the relational model, and with the individual records being the equivalent of rows.
+2. Network model - this model permitted the modeling of many-to-many relationships in data and is similar to 
+hierarchical database model.
+3. Relational model - also known as RDBMS (relational database management system). A relational database allows 
+the definition of data structures, storage and retrieval operations and integrity constraints. In such a database 
+the data and relations between them are organised in tables. A table is a collection of records and each record 
+in a table contains the same fields. 
+4. Object-oriented model - it is based on one-to-one mapping of object programming language objects to database 
+objects, and has two benefits over other storage approaches: it provides higher performance management of objects, 
+and it enables better management of the complex interrelationships between objects.
+5. Document model - also known as Flat model. Represents the most basic way to organize data as a flat file. 
+It contains a tables with a large number of records and fields. Everything needed is stored in this table, or flat file.

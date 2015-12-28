@@ -1,0 +1,41 @@
+use blog
+
+db.createCollection('posts');
+
+var blogInfo =
+[{
+    title: "Levski Sofia",
+    content: "The best goals through the years",
+    dateOfCreation: new Date(ISODate().getTime()),
+    category: "Football",
+    tags: ["Joro"],
+    author: {
+        name: "Pesho Peshev",
+        tweeterAccount: "peshkata",
+        linkedInAccount: "peshoProfessional"
+    }
+},
+{
+    title: "Boyko Prime Minister",
+    content: "The new prime minister of Bulgaria is BOYKO BORISOV. GOD SAVE BULGARIA!!!",
+    dateOfCreation: new Date(ISODate().getTime()),
+    category: "Politics",
+    tags: ["Minka","Vanka","Maria","Konstantin","Todor"],
+    author: {
+        name: "Blagoy Ivanov",
+        tweeterAccount: "blago",
+        linkedInAccount: "blagoyProfessional"
+    }
+}];
+
+db.posts.insert(blogInfo);
+
+// dump database blog 
+ mongodump --dmob blog
+
+ // drop database blog 
+ use mydb;
+ db.dropDatabase();
+
+ // restore database blog
+ mongorestore -d blog

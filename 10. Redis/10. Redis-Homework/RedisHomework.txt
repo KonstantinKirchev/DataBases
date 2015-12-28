@@ -1,0 +1,17 @@
+flushall
+
+sadd authors:usernames konstantin ralitsa dido anna
+
+smembers authors:usernames
+
+hmset authors:konstantin name "Konstantin Kirchev" age 33 email "konstantin1230@yahoo.com" phone "+359 899 947 852"
+hmset authors:ralitsa name "Ralitsa Raicheva" age 39 email "rali_rgr@yahoo.com" phone "+359 888 610 285"
+hmset authors:dido name "Konstantin Kirchev" age 68 email "dondidon@softuni.bg" phone "+359 899 947 853"
+hmset authors:anna name "Anna Topolska" age 65 email "anni@yahoo.bg" phone "+359 889 945 867"  
+
+set ads:count 3
+
+hmset ad:1 title "Sell AcerAspire S3 - 700$" description "Almost as new. Don't think about it. Come and get it!!!" location "Sofia" date "03/21/2014" author "konstantin"
+hmset ad:2 title "Sell House in Breznik - 21700$" description "The house is in a very good condition. Sell as is!!!" location "Breznik" date "08/10/2014" author "ralitsa"
+hmset ad:3 title "Buy Apartment in Sofia - 25500$" description "I am looking for a nice 3 bedroom apartment close to the center!!!" location "Ruse" date "06/03/2014" author "dido"
+hmset ad:4 title "Sell Car BMW7 - 11300$" description "BMW7 very good condition. Year 2000." location "Sozopol" date "10/19/2014" author "anna"  

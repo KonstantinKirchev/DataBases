@@ -1,0 +1,3 @@
+A table is a collection of related data held in a structured format within a database. It consists of fields (columns), and rows. 
+Each table has one or more columns and new data is stored in rows. Some of the columns can allow NULL values. 
+There are several differences between relations and tables. One of them is that tables can potentially contain duplicate values, while a relation cannot. Also a table is ordered, while a relation does not have a defined order.

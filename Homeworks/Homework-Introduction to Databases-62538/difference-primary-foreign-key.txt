@@ -1,0 +1,16 @@
+	Primary key:
+	A primary key uniquely specifies a tuple within a table. In order for an attribute to be a good primary key it must not repeat. While natural attributes 
+	(attributes used to describe the data being entered) are sometimes good primary keys, surrogate keys are often used instead. A surrogate key is an artificial 
+	attribute assigned to an object which uniquely identifies it (for instance, in a table of information about students at a school they might all be assigned a 
+	student ID in order to differentiate them). The surrogate key has no intrinsic (inherent) meaning, but rather is useful through its ability to uniquely identify 
+	a tuple. Another common occurrence, especially in regard to N:M cardinality is the composite key. A composite key is a key made up of two or more attributes 
+	within a table that (together) uniquely identify a record. (For example, in a database relating students, teachers, and classes. Classes could be uniquely 
+	identified by a composite key of their room number and time slot, since no other class could have exactly the same combination of attributes. In fact, use 
+	of a composite key such as this can be a form of data verification, albeit a weak one.
+
+	Foreign key:
+	A foreign key is a field in a relational table that matches the primary key column of another table. The foreign key can be used to cross-reference tables. 
+	Foreign keys need not have unique values in the referencing relation. Foreign keys effectively use the values of attributes in the referenced relation to 
+	restrict the domain of one or more attributes in the referencing relation. A foreign key could be described formally as: "For all tuples in the referencing 
+	relation projected over the referencing attributes, there must exist a tuple in the referenced relation projected over those same attributes such that the 
+	values in each of the referencing attributes match the corresponding values in the referenced attributes."

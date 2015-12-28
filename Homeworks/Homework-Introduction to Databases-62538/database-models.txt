@@ -1,0 +1,63 @@
+	Flat model:
+	The flat (or table) model consists of a single, two-dimensional array of data elements, where all members of a given column are assumed to be similar values, and all
+	members of a row are assumed to be related to one another. For instance, columns for name and password that might be used as a part of a system security database. 
+	Each row would have the specific password associated with an individual user. Columns of the table often have a type associated with them, defining them as character
+	data, date or time information, integers, or floating point numbers. This tabular format is a precursor to the relational model.
+	
+	Hierarchical model:
+	In a hierarchical model, data is organized into a tree-like structure, implying a single parent for each record. A sort field keeps sibling records in a particular 
+	order. Hierarchical structures were widely used in the early mainframe database management systems, such as the Information Management System (IMS) by IBM, and now 
+	describe the structure of XML documents. This structure allows one one-to-many relationship between two types of data. This structure is very efficient to describe 
+	many relationships in the real world; recipes, table of contents, ordering of paragraphs/verses, any nested and sorted information.
+	
+	Network model:
+	The network model expands upon the hierarchical structure, allowing many-to-many relationships in a tree-like structure that allows multiple parents. It was most popular
+	before being replaced by the relational model, and is defined by the CODASYL specification.
+	The network model organizes data using two fundamental concepts, called records and sets. Records contain fields (which may be organized hierarchically, as in the 
+	programming language COBOL). Sets (not to be confused with mathematical sets) define one-to-many relationships between records: one owner, many members. A record may be 
+	an owner in any number of sets, and a member in any number of sets.
+	
+	Inverted file model:
+	In an inverted file or inverted index, the contents of the data are used as keys in a lookup table, and the values in the table are pointers to the location of each 
+	instance of a given content item. This is also the logical structure of contemporary database indexes, which might only use the contents from a particular columns in 
+	the lookup table. The inverted file data model can put indexes in a second set of files next to existing flat database files, in order to efficiently directly access 
+	needed records in these files.
+	Notable for using this data model is the ADABAS DBMS of Software AG, introduced in 1970. ADABAS has gained considerable customer base and exists and supported until 
+	today. In the 1980s it has adopted the relational model and SQL in addition to its original tools and languages.
+	
+	Relational model:
+	The relational model was introduced by E.F. Codd in 1970[1] as a way to make database management systems more independent of any particular application. It is a 
+	mathematical model defined in terms of predicate logic and set theory, and systems implementing it have been used by mainframe, midrange and microcomputer systems.
+	The products that are generally referred to as relational databases in fact implement a model that is only an approximation to the mathematical model defined by Codd. 
+	Three key terms are used extensively in relational database models: relations, attributes, and domains. A relation is a table with columns and rows. The named columns 
+	of the relation are called attributes, and the domain is the set of values the attributes are allowed to take.
+	
+	Dimensional model:
+	The dimensional model is a specialized adaptation of the relational model used to represent data in data warehouses in a way that data can be easily summarized using 
+	online analytical processing, or OLAP queries. In the dimensional model, a database schema consists of a single large table of facts that are described using dimensions 
+	and measures. A dimension provides the context of a fact (such as who participated, when and where it happened, and its type) and is used in queries to group related facts 
+	together. Dimensions tend to be discrete and are often hierarchical; for example, the location might include the building, state, and country. A measure is a quantity 
+	describing the fact, such as revenue. It is important that measures can be meaningfully aggregated—for example, the revenue from different locations can be added together.
+	
+	Graph model:
+	Graph databases allow even more general structure than a network database; any node may be connected to any other node.
+	
+	Multivalue model:
+	Multivalue databases are "lumpy" data, in that they can store exactly the same way as relational databases, but they also permit a level of depth which the relational model
+	can only approximate using sub-tables. This is nearly identical to the way XML expresses data, where a given field/attribute can have multiple right answers at the same time. 
+	Multivalue can be thought of as a compressed form of XML.
+	
+	My choice of different data base model is Object-oriented database models:
+	In the 1990s, the object-oriented programming paradigm was applied to database technology, creating a new database model known as object databases. This aims to avoid the 
+	object-relational impedance mismatch - the overhead of converting information between its representation in the database (for example as rows in tables) and its representation 
+	in the application program (typically as objects). Even further, the type system used in a particular application can be defined directly in the database, allowing the database 
+	to enforce the same data integrity invariants. Object databases also introduce the key ideas of object programming, such as encapsulation and polymorphism, into the world of 
+	databases.
+	A variety of these ways have been tried[by whom?]for storing objects in a database. Some[which?] products have approached the problem from the application programming end, by 
+	making the objects manipulated by the program persistent. This typically requires the addition of some kind of query language, since conventional programming languages do not 
+	have the ability to find objects based on their information content. Others[which?] have attacked the problem from the database end, by defining an object-oriented data model 
+	for the database, and defining a database programming language that allows full programming capabilities as well as traditional query facilities.
+	Object databases suffered because of a lack of standardization: although standards were defined by ODMG, they were never implemented well enough to ensure interoperability 
+	between products. Nevertheless, object databases have been used successfully in many applications: usually specialized applications such as engineering databases or molecular 
+	biology databases rather than mainstream commercial data processing. However, object database ideas were picked up by the relational vendors and influenced extensions made to 
+	these products and indeed to the SQL language.

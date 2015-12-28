@@ -1,0 +1,161 @@
+use chatroom
+
+db.createCollection('messages');
+
+var konstantinRalitsaMessages = 
+	[{
+		text: "Hey what's up?",
+		date: new Date(ISODate().getTime()),
+		isRead: true,
+		user: {
+			username: "blueeagle",
+			fullname: "Konstantin Kirchev",
+			website: "http://www.kkkiswatchingyounig**.com/"
+		}
+	},      {
+		text: "Not much, just cheeling",
+		date: new Date(ISODate().getTime() + 1000 * 60 * 1),
+		isRead: true,
+		user: {
+			username: "ralirai",
+			fullname: "Ralitsa Raicheva",
+			website: "http://www.rali_rgr.com/"
+		}
+	},      {
+		text: "Do you want to go out for a movie?",
+		date: new Date(ISODate().getTime() + 1000 * 60 * 2),
+		isRead: true,
+		user: {
+			username: "blueeagle",
+			fullname: "Konstantin Kirchev",
+			website: "http://www.kkkiswatchingyounig**.com/"
+		}
+	},      {
+		text: "Yes, why not. I will meet you there. Bye",
+		date: new Date(ISODate().getTime() + 1000 * 60 * 3),
+		isRead: false,
+		user: {
+			username: "ralirai",
+			fullname: "Ralitsa Raicheva",
+			website: "http://www.rali_rgr.com/"
+		}
+	}];
+
+ db.messages.insert(konstantinRalitsaMessages);	
+
+var shamara100KilaMessages = 
+	[{
+		text: "UUU, bratooo kooo staaaaa?",
+		date: new Date(ISODate().getTime()),
+		isRead: true,
+		user: {
+			username: "mishoncho",
+			fullname: "Misho Shamara",
+			website: "http://www.mishoBIGTashak.com/"
+		}
+	},      {
+		text: "Sa sam na rabota. Kradem jica",
+		date: new Date(ISODate().getTime() + 1000 * 60 * 1),
+		isRead: true,
+		user: {
+			username: "100Jipsita",
+			fullname: "100 Kila",
+			website: "http://www.geto.com/"
+		}
+	},      {
+		text: "Ostavi q tazi jica i ela  v kluba. Kurvolqka e nalazil.",
+		date: new Date(ISODate().getTime() + 1000 * 60 * 2),
+		isRead: true,
+		user: {
+			username: "mishoncho",
+			fullname: "Misho Shamara",
+			website: "http://www.mishoBIGTashak.com/"
+		}
+	},      {
+		text: "ok idvame s bratqta ot getoto",
+		date: new Date(ISODate().getTime() + 1000 * 60 * 3),
+		isRead: false,
+		user: {
+			username: "100Jipsita",
+			fullname: "100 Kila",
+			website: "http://www.geto.com/"
+		}
+	}];
+
+ db.messages.insert(shamara100KilaMessages);
+
+// get all messagess(user, text and date)
+ db.messages.aggregate([{
+     $project: {
+         _id: 0,
+         "user.username": 1,
+         text: 1,
+         date: {
+             $substr: ["$date", 11, 18]
+         }
+     }
+ }]);
+
+ // get all unread messages (text, user fullname)
+ db.messages.find({
+     isRead: false
+ }, {
+     "user.fullName": 1,
+     text: 1,
+     _id: 0
+ });
+
+ // get all read messages by penka
+ db.messages.find({
+     $and: [{
+         isRead: true
+     }, {
+         "user.username": {
+             $eq: "penka_p"
+         }
+     }]
+ }, {
+     text: 1,
+     _id: 0
+ });
+
+ // update webiste for uesr pesho
+ db.messages.update({
+     "user.username": {
+         $eq: "pesho_g"
+     }
+ }, {
+     $set: {
+         "user.website": "http://peshoG.com"
+     }
+ }, {
+     multi: true
+ });
+
+ // find first updated pesho website
+ db.messages.find({
+     "user.username": "pesho_g"
+ }, {
+     "user.website": 1,
+     _id: 0
+ }).limit(1);
+
+ // group by read/unred and get count for each
+ db.messages.aggregate([{
+     $group: {
+         _id: "$isRead",
+         messages: {
+             $sum: 1
+         }
+     }
+ }]);
+
+ // dump database chatroom 
+ mongodump --dmob chatroom
+
+ // drop database chatroom 
+ use mydb;
+ db.dropDatabase();
+
+ // restore database chatroom
+ mongorestore -d chatroom

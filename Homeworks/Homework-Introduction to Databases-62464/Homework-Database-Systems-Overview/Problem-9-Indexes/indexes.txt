@@ -1,0 +1,27 @@
+Problem 9. Pros and Cons of Using Indexes in a Database?
+
+A database index is a data structure that improves the speed of data retrieval operations on a database table 
+at the cost of additional writes and storage space to maintain the index data structure. Indexes are used to 
+quickly locate data without having to search every row in a database table every time a database table is accessed. 
+Indexes can be created using one or more columns of a database table. An index is a copy of select columns of data 
+from a table that can be searched very efficiently that also includes a low-level disk block address or direct link 
+to the complete row of data it was copied from.
+There is clustered and non-clustered indexing methods. 
+Clustering alters the data block into a certain distinct order to match the index, resulting in the row data being 
+stored in order. Therefore, only one clustered index can be created on a given database table. Clustered indices can 
+greatly increase overall speed of retrieval, but usually only where the data is accessed sequentially in the same or 
+reverse order of the clustered index, or when a range of items is selected.
+The B-tree is a tree data structure that keeps data sorted and allows searches, sequential access, insertions, 
+and deletions in logarithmic time. The B-tree is a generalization of a binary search tree in that a node can have 
+more than two children. Unlike self-balancing binary search trees, the B-tree is optimized for systems that read and 
+write large blocks of data. B-trees are a good example of a data structure for external memory. It is commonly used 
+in databases and filesystems.
+A column-store index is a type of data structure that is used to store, manage and retrieve data that is stored in a 
+columnar-style database.
+Full text search refers to techniques for searching a single computer-stored document or a collection in a full text 
+database. Full-text search is distinguished from searches based on metadata or on parts of the original texts represented 
+in databases (such as titles, abstracts, selected sections, or bibliographical references). In a full-text search, 
+a search engine examines all of the words in every stored document as it tries to match search criteria for example 
+(text specified by a user). 
+Spatial indices are used by spatial databases (databases which store information related to objects in space) to 
+optimize spatial queries. They are used for indexing of geographical objects - shapes or objects that overlap in space. 

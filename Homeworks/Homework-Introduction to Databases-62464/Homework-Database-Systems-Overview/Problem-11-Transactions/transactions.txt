@@ -1,0 +1,27 @@
+Problem 11. Transactions
+
+A transaction generally represents any change in database. Transactions in a database environment have two main purposes:
+- To provide reliable units of work that allow correct recovery from failures and keep a database consistent 
+even in cases of system failure, when execution stops (completely or partially) and many operations upon a database 
+remain uncompleted, with unclear status.
+- To provide isolation between programs accessing a database concurrently. If this isolation is not provided, 
+the program's outcome are possibly incorrect.
+
+A database transaction, by definition, must be atomic, consistent, isolated and durable (ACID).
+Transactions provide an "all-or-nothing" proposition, stating that each work-unit performed in a database must either 
+complete in its entirety or have no effect whatsoever. Further, the system must isolate each transaction from other 
+transactions, results must conform to existing constraints in the database, and transactions that complete successfully 
+must get written to durable storage. In other words there is a few steps:
+- begin the transaction;
+- execute a set of data manipulations and/or queries;
+- if no errors occur then commit the transaction and end it;
+- if errors occur then rollback the transaction and end it.
+
+Transaction log is a history of actions executed by a database management system to guarantee ACID properties over 
+crashes or hardware failures. Physically, a log is a file listing changes to the database, stored in a stable 
+storage format.
+If, after a start, the database is found in an inconsistent state or not been shut down properly, the database 
+management system reviews the database logs for uncommitted transactions and rolls back the changes made by 
+these transactions. Additionally, all transactions that are already committed but whose changes were not yet 
+materialized in the database are re-applied. Both are done to ensure atomicity and durability of transactions.
+

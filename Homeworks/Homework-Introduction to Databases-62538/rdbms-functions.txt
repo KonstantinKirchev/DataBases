@@ -1,0 +1,50 @@
+	A relational database management system (RDBMS) is a program that lets you create, update, and administer a relational database. Most commercial RDBMS's use the Structured 
+	Query Language (SQL) to access the database, although SQL was invented after the development of the relational model and is not necessary for its use.
+	
+	There are several functions that a DBMS performs to ensure data integrity and consistency of data in the database. The ten functions in the DBMS are: data dictionary management, 
+	data storage management, data transformation and presentation, security management, multiuser access control, backup and recovery management, data integrity management, database 
+	access languages and application programming interfaces, database communication interfaces, and transaction management.
+	
+	Data Dictionary Management:
+	Data Dictionary is where the DBMS stores definitions of the data elements and their relationships (metadata).  The DBMS uses this function to look up the required data component 
+	structures and relationships. When programs access data in a database they are basically going through the DBMS. This function removes structural and data dependency and provides 
+	the user with data abstraction. In turn, this makes things a lot easier on the end user. The Data Dictionary is often hidden from the user and is used by Database Administrators 
+	and Programmers.
+	
+	Data Storage Management:
+	This particular function is used for the storage of data and any related data entry forms or screen definitions, report definitions, data validation rules, procedural code, and 
+	structures that can handle video and picture formats. Users do not need to know how data is stored or manipulated. Also involved with this structure is a term called performance 
+	tuning that relates to a database’s efficiency in relation to storage and access speed.
+	
+	Data Transformation and Presentation:
+	This function exists to transform any data entered into required data structures. By using the data transformation and presentation function the DBMS can determine the difference 
+	between logical and physical data formats.
+	
+	Security Management:
+	This is one of the most important functions in the DBMS. Security management sets rules that determine specific users that are allowed to access the database. Users are given a 
+	username and password or sometimes through biometric authentication (such as a fingerprint or retina scan) but these types of authentication tend to be more costly. This function 
+	also sets restraints on what specific data any user can see or manage.
+	
+	Multiuser Access Control:
+	Data integrity and data consistency are the basis of this function. Multiuser access control is a very useful tool in a DBMS, it enables multiple users to access the database 
+	simultaneously without affecting the integrity of the database.
+	
+	Backup and Recovery Management:
+	Backup and recovery is brought to mind whenever there is potential outside threats to a database. For example if there is a power outage, recovery management is how long it 
+	takes to recover the database after the outage. Backup management refers to the data safety and integrity; for example backing up all your mp3 files on a disk.
+	
+	Data Integrity Management:
+	The DBMS enforces these rules to reduce things such as data redundancy, which is when data is stored in more than one place unnecessarily, and maximizing data consistency, 
+	making sure database is returning correct/same answer each time for same question asked.
+	
+	Database Access Languages and Application Programming Interfaces:
+	A query language is a nonprocedural language. An example of this is SQL (structured query language). SQL is the most common query language supported by the majority of 
+	DBMS vendors. The use of this language makes it easy for user to specify what they want done without the headache of explaining how to specifically do it.
+	
+	Database Communication Interfaces:
+	This refers to how a DBMS can accept different end user requests through different network environments. An example of this can be easily related to the internet.  A 
+	DBMS can provide access to the database using the Internet through Web Browsers (Mozilla Firefox, Internet Explorer, Netscape).
+	
+	Transaction Managemen:
+	This refers to how a DBMS must supply a method that will guarantee that all the updates in a given transaction are made or not made.All transactions must follow what is 
+	called the ACID properties.

@@ -1,0 +1,12 @@
+Problem 10. SQL Language
+
+Structured Query Language (SQL) is a special-purpose declarative language designed for managing data held in a 
+relational database management system (RDBMS), or for stream processing in a RDBMS.
+Originally based upon relational algebra, SQL consists of a data definition language (DDL) and a data manipulation 
+language (DML). The scope of SQL includes data insert, query, update and delete, schema creation and modification, 
+and data access control. Although SQL is often described as a declarative language, it also includes procedural elements.
+The following is example of SQL query:
+SELECT *
+ FROM  Book
+ WHERE price > 100.00
+ ORDER BY title;

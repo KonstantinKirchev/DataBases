@@ -1,0 +1,7 @@
+Hierarchical model- this data models organizes the data in a tree structure. It consists of child and parent segments.
+
+Network model- a database model that allows multiple records to be linked to the same owner file. A many-to-many relation database model.
+
+Relation model(RDBMS)- a database model that allows the definition of data structures, storage and retrieval operations and integrity constraints. In a relational database the data is stored in tables.
+
+Object-Oriented model- a model which stores the data in objects, rather than plain text, thus allowing the usage of a programming language when manipulating the database. Classes are used in this model of database. An object-oriented model should be used when there are very complex objects and/or relations. Some of its advantages over RDBMS is that it is easier to navigate, the data model is based on the real world, less code is required for object-oriented applicaitons. Disadvantages over RDBMS is that object-oriented databases are more inefficient when the data and the relations are less complex. Also RDBMS are simpler and more widely supported. 

@@ -1,0 +1,200 @@
+INSERT INTO Projects(Name, StartDate)
+VALUES('Introduction to SQL Course', '1/1/2006')
+............................................................
+UPDATE Projects
+SET EndDate = '8/31/2006'
+WHERE StartDate = '1/1/2006'
+............................................................
+DELETE FROM Projects
+WHERE StartDate = '1/1/2006'
+............................................................
+CREATE PROCEDURE EmpDump AS
+  DECLARE @EmpId INT, @EmpFName NVARCHAR(100), @EmpLName NVARCHAR(100)
+  DECLARE emps CURSOR FOR
+    SELECT EmployeeID, FirstName, LastName FROM Employees
+  OPEN emps
+  FETCH NEXT FROM emps INTO @EmpId, @EmpFName, @EmpLName
+  WHILE (@@FETCH_STATUS = 0) 
+  BEGIN
+    PRINT CAST(@EmpId AS VARCHAR(10)) + ' ' 
+      + @EmpFName + ' ' + @EmpLName
+    FETCH NEXT FROM emps INTO @EmpId, @EmpFName, @EmpLName
+  END
+  CLOSE emps
+  DEALLOCATE emps
+GO
+............................................................
+SELECT FirstName AS Name FROM Employees
+UNION
+SELECT LastName AS Name FROM Employees
+
+UNION - Връща резултатите без повторения (Distinct)
+UNION ALL - Връща всички резултати с повторенията
+INTERSECT - Връща само еднаквите данни от двете куерита
+EXCEPT - Връща само различните данни от двете куерита
+.............................................................
+SELECT FirstName, LastName, ManagerID FROM Employees
+WHERE ManagerID NOT IN (109, 3, 16)
+.............................................................
+SELECT *
+FROM Employees
+WHERE DepartmentID IN
+(SELECT DepartmentID FROM Departments WHERE ManagerID = 42)
+
+Връща всички employee който са в отдела чийто шеф е 42
+.............................................................
+SELECT *
+FROM Employees
+WHERE DepartmentID IN
+(SELECT DepartmentID 
+ FROM Departments 
+ WHERE ManagerID IN
+ (SELECT EmployeeID
+ FROM Employees
+ WHERE FirstName = 'Jean' AND LastName = 'Trenary' ))
+.............................................................
+SELECT LastName FROM Employees
+WHERE NOT (ManagerID = 3 OR ManagerID = 4)
+.............................................................
+SELECT * FROM Towns
+ORDER BY Name 
+OFFSET 20 ROWS 
+FETCH NEXT 5 ROWS ONLY
+.............................................................
+SELECT TOP (SELECT COUNT(*) FROM Departments) * FROM Employees
+ORDER BY Salary DESC
+Това ми изкарва толкова реда от таблица employees колкото е броя на departments
+.............................................................
+SELECT e.FirstName, e.LastName, d.Name as DeptName
+FROM Employees e
+  INNER JOIN Departments d
+  ON (e.DepartmentId = d.DepartmentId
+  AND e.HireDate > '1/1/1999'
+  AND d.Name IN ('Sales', 'Finance'))
+.............................................................
+INSERT INTO Projects(Name, StartDate)
+  SELECT Name + ' Restructuring', GETDATE()
+  FROM Departments
+.............................................................
+UPDATE Employees
+SET Salary = Salary * 1.10, JobTitle = 'Senior ' + JobTitle
+WHERE DepartmentID = 3
+.............................................................
+UPDATE Employees
+SET JobTitle = 'Senior ' + JobTitle
+FROM Employees e 
+  JOIN Departments d
+    ON e.DepartmentID = d.DepartmentID
+WHERE d.Name = 'Sales'
+.............................................................
+DESCRIBE <table_name>
+Показва ми схемата на таблицата в MySQL
+.............................................................
+SELECT e.FirstName, e.LastName, e.HireDate, d.Name as Dept
+FROM Employees e 
+JOIN Departments d ON e.DepartmentID = d.DepartmentID
+WHERE e.HireDate = 
+  (SELECT MIN(HireDate) FROM Employees 
+   WHERE DepartmentID = d.DepartmentID)
+.............................................................
+SELECT e.FirstName,e.LastName,e.Salary,d.Name
+FROM Employees e
+JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+WHERE e.Salary < (SELECT AVG(e.Salary)
+FROM Employees e
+WHERE d.DepartmentID = e.DepartmentID)
+ORDER BY e.Salary DESC
+.............................................................
+SELECT e.FirstName+' '+e.LastName AS FullName, e.Salary, d.Name AS Department
+FROM Employees e
+JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+WHERE e.Salary = (SELECT MIN(Salary) FROM Employees e WHERE d.DepartmentID = e.DepartmentID)
+.............................................................
+SELECT FirstName, LastName, EmployeeID, ManagerID
+FROM Employees e
+WHERE EXISTS
+  (SELECT EmployeeID FROM Employees m
+   WHERE m.EmployeeID = e.ManagerID AND m.DepartmentID = 1)
+.............................................................
+SELECT t.Name, COUNT(DISTINCT  m.EmployeeID)
+FROM dbo.Employees e
+	JOIN dbo.Employees m 
+		ON m.EmployeeID = e.ManagerID
+	JOIN dbo.Addresses a 
+		ON a.AddressID = m.AddressID
+	JOIN dbo.Towns t 
+		ON t.TownID = a.TownID
+	WHERE e.ManagerID = m.EmployeeID
+	GROUP BY t.Name 
+	ORDER BY t.Name
+.............................................................
+SELECT AVG(MaxSalary) AS AverageMaxSalary
+FROM
+(SELECT d.Name, MAX(e.Salary) AS MaxSalary
+FROM Employees e
+JOIN Departments d
+ON e.DepartmentID = d.DepartmentID
+GROUP BY d.Name) a
+............................................................
+SELECT DepartmentID, COUNT(EmployeeID) as EmpCount,
+  AVG(Salary) as AverageSalary
+FROM Employees
+GROUP BY DepartmentID
+HAVING COUNT(EmployeeID) BETWEEN 3 AND 5
+............................................................
+SELECT StartDate, ISNULL(CAST(EndDate AS NVARCHAR(MAX)),'no end date')
+FROM Projects
+ORDER BY EndDate
+............................................................
+SELECT LEFT('Konstantin',2) + RIGHT('Konstantin',1) + SUBSTRING('Konstantin',4,LEN('Konstantin'))
+............................................................
+SELECT LastName, LEN(LastName) AS LastNameLen,
+  UPPER(LastName) AS UpperLastName
+FROM Employees
+WHERE RIGHT(LastName, 3) = 'son'
+............................................................
+SELECT IIF(DATENAME(MONTH,GETDATE())='July','yes','no')
+............................................................
+SELECT CONVERT(DATETIME, '20051231', 112)
+SELECT CAST('20051231' AS DATETIME)
+............................................................
+SELECT FORMAT(GETDATE(), 'dd.mm.yyyy hh:mm:ss:fff')
+SELECT CONVERT(VARCHAR(11),GETDATE(),104) +' '+ CONVERT(VARCHAR(11),GETDATE(),114)
+............................................................
+SELECT FLOOR(3.14)
+SELECT CAST(3.84325254543 AS INT)
+SELECT CEILING(3.645435)
+............................................................
+CREATE VIEW [First 10 Persons] AS
+SELECT TOP 10 Name FROM Persons
+............................................................
+ALTER TABLE Cities
+ADD CONSTRAINT FK_Cities_Countries
+  FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)
+............................................................
+ALTER TABLE Countries ADD Population int
+............................................................
+ALTER TABLE Countries DROP COLUMN Population
+............................................................
+DROP TABLE Persons
+ALTER TABLE Cities
+DROP CONSTRAINT FK_Cities_Countries
+............................................................
+DATEDIFF(Year, HireDate, GETDATE()) * Salary / 1000
+............................................................
+WITH summary AS (
+SELECT  t.Name, COUNT(*) AS [Number of Employees] FROM Towns t
+JOIN Addresses a ON t.TownID = a.TownID
+JOIN Employees e ON a.AddressID = e.AddressID
+GROUP BY t.Name
+)
+SELECT Name, [Number of Employees]
+FROM summary 
+WHERE [Number of Employees] =
+        (SELECT MAX([Number of Employees])
+        FROM summary)
+............................................................
+
+

@@ -1,0 +1,27 @@
+	There are 3 types of table relationships:
+	1. One-to-one relationships
+	2. One-to-many relationships
+	3. Many-to-many relationships
+
+	One-to-One Relationships:
+	In a one-to-one relationship, each row in one database table is linked to one and only one other row in another table. 
+	In a one-to-one relationship between Table A and Table B, each row in Table A is linked to another row in Table B. The 
+	number of rows in Table A must equal the number of rows in Table B.
+	It would be apparent that one-to-one relationships are not very useful since the database designer might as well simply 
+	merge both tables into a single table. This is true in general. However, there are some situations in which the one-to-one 
+	relationship may improve performance. For example, if a database table contains a few columns of data that is frequently 
+	used and the remaining columns being infrequently used, the database designer may split the single table into 2 tables 
+	linked through a one-to-one relationship. Such a design would reduce the overhead needed to retrieve the infrequently 
+	used columns whenever query is performed on the contents of the database table.
+
+	One-to-Many Relationships:
+	In a one-to-many relationship, each row in the related to table can be related to many rows in the relating table. This 
+	effectively save storage as the related record does not need to be stored multiple times in the relating table.
+	For example, all the customers belonging to a business is stored in a customer table while all the customer invoices are 
+	stored in an invoice table. Each customer can have many invoices but each invoice can only be generated for a single customer.
+
+	Many-to-Many Relationships:
+	In a many-to-many relationship, one or more rows in a table can be related to 0, 1 or many rows in another table. A mapping 
+	table is required in order to implement such a relationship.
+	For example, all the customers belonging to a bank is stored in a customer table while all the bank's products are stored in 
+	a product table. Each customer can have many products and each product can be assigned to many customers.

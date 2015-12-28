@@ -1,0 +1,3 @@
+UPDATE Users 
+SET UserPassword = NULL
+WHERE DATEDIFF(DAY, LastLogin, CAST('2010-03-10' AS DATE)) > 0
